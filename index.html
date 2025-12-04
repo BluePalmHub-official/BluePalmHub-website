@@ -496,14 +496,7 @@
                 </div>
                 
                 <div class="contact-form-wrapper">
-                    <form id="contactForm" class="contact-form" netlify netlify-honeypot="bot-field" name="contact">
-                        <input type="hidden" name="form-name" value="contact">
-                        
-                        <!-- Hidden honeypot field for spam protection -->
-                        <p style="display: none;">
-                            <label>Don't fill this out: <input name="bot-field"></label>
-                        </p>
-                        
+                    <form id="contactForm" class="contact-form">
                         <div class="form-group">
                             <label for="name">Full Name *</label>
                             <input 
@@ -645,12 +638,15 @@
 
     <!-- Back to Top Button -->
     <button id="backToTop" class="back-to-top" aria-label="Back to top">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 19V5M5 12l7-7 7 7"/>
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
         </svg>
     </button>
 
-    <!-- JavaScript -->
+    <!-- EmailJS Library -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <!-- Your Custom Scripts -->
     <script src="script.js"></script>
 </body>
 </html>

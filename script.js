@@ -3,6 +3,13 @@
    ================================== */
 
 // ===================================
+// EmailJS Initialization
+// ===================================
+(function() {
+    emailjs.init(KV-gWgjVQpnHZiRVi);  // REPLACE with your actual EmailJS public key
+})();
+
+// ===================================
 // Navigation Functionality
 // ===================================
 
@@ -246,7 +253,7 @@ if (contactForm) {
     });
     
     /**
-     * Form submission handler
+     * Form submission handler with EmailJS
      */
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -269,41 +276,52 @@ if (contactForm) {
             }
         });
         
-        // If form is valid, simulate submission
+        // If form is valid, send via EmailJS
         if (formIsValid) {
-            // Disable submit button during "submission"
             const submitButton = contactForm.querySelector('button[type="submit"]');
             const originalButtonText = submitButton.textContent;
             submitButton.disabled = true;
             submitButton.textContent = 'Sending...';
             
-            // Simulate API call (replace with actual API call in production)
-            setTimeout(() => {
-                // Show success message
-                formSuccess.classList.add('show');
+            // Send email using EmailJS
+            emailjs.sendForm(service_kguv03s, template_g7i4wwj, contactForm)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    
+                    // Show success message
+                    formSuccess.classList.add('show');
+                    
+                    // Reset form
+                    contactForm.reset();
+                    
+                    // Re-enable submit button
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
+                    
+                    // Scroll to success message
+                    formSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    
+                    // Hide success message after 10 seconds
+                    setTimeout(() => {
+                        formSuccess.classList.remove('show');
+                    }, 10000);
+                    
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    
+                    // Show error alert
+                    alert('Sorry, there was an error sending your message. Please email us directly at dennis.quijano@bluepalmhub.com');
+                    
+                    // Re-enable submit button
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
+                });
                 
-                // Reset form
-                contactForm.reset();
-                
-                // Re-enable submit button
-                submitButton.disabled = false;
-                submitButton.textContent = originalButtonText;
-                
-                // Scroll to success message
-                formSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                
-                // Hide success message after 10 seconds
-                setTimeout(() => {
-                    formSuccess.classList.remove('show');
-                }, 10000);
-                
-            }, 1500);
         } else {
             // Scroll to first error
-            const firstError = contactForm.querySelector('.error');
+            const firstError = document.querySelector('.form-group .error');
             if (firstError) {
                 firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                firstError.focus();
             }
         }
     });
