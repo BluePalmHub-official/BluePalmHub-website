@@ -6,7 +6,7 @@
 // EmailJS Initialization
 // ===================================
 (function() {
-    emailjs.init(KV-gWgjVQpnHZiRVi);  // REPLACE with your actual EmailJS public key
+    emailjs.init("KV-gWgjVQpnHZiRVi");
 })();
 
 // ===================================
@@ -284,7 +284,7 @@ if (contactForm) {
             submitButton.textContent = 'Sending...';
             
             // Send email using EmailJS
-            emailjs.sendForm(service_kguv03s, template_g7i4wwj, contactForm)
+            emailjs.sendForm('service_nn6e9qk', 'template_g7i4wwj', contactForm)
                 .then(function(response) {
                     console.log('SUCCESS!', response.status, response.text);
                     
